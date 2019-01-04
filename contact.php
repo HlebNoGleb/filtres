@@ -41,22 +41,17 @@ function send_mail($to,$subject,$message,$headers){
 }
 
 //Get data form and send mail - Thank you Rafael for your contribution.
-if(isset($_POST['name']) and isset($_POST['emaild']) and isset($_POST['message'])){
+if(isset($_POST['name']) and isset($_POST['phone'])){
 	$name = $_POST['name'];
-	$mail = $_POST['emaild'];
-	$subjectForm = $_POST['subject'];
-	$messageForm = $_POST['message'];
+	$mail = $_POST['phone'];
 
     if($name == '') {
-        echo json_encode(array('info' => 'error', 'msg' => "Please enter your name."));
+        echo json_encode(array('info' => 'error', 'msg' => "Пожалуйста, введите ваше имя"));
         exit();
     } else if($mail == '' or check_email($mail) == false){
-        echo json_encode(array('info' => 'error', 'msg' => "Please enter valid e-mail."));
+        echo json_encode(array('info' => 'error', 'msg' => "Пожалуйста, введите ваш телефон"));
         exit();
-    } else if($messageForm == ''){
-        echo json_encode(array('info' => 'error', 'msg' => "Please enter your message."));
-        exit();
-    } else {
+    }  else {
         $to = __TO__;
         $subject = $subjectForm . ' ' . $name;
         $message = '
@@ -73,14 +68,6 @@ if(isset($_POST['name']) and isset($_POST['emaild']) and isset($_POST['message']
             <tr style="height: 32px;">
               <th align="right" style="width:150px; padding-right:5px;">E-mail:</th>
               <td align="left" style="padding-left:5px; line-height: 20px;">'. $mail .'</td>
-            </tr>
-            <tr style="height: 32px;">
-              <th align="right" style="width:150px; padding-right:5px;">Subject:</th>
-              <td align="left" style="padding-left:5px; line-height: 20px;">'. $subjectForm .'</td>
-            </tr>
-            <tr style="height: 32px;">
-              <th align="right" style="width:150px; padding-right:5px;">Message:</th>
-              <td align="left" style="padding-left:5px; line-height: 20px;">'. $messageForm  .'</td>
             </tr>
           </table>
         </body>
